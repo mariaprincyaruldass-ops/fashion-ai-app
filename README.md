@@ -1,14 +1,7 @@
 # 👗 StyleAI – Smart Fashion Assistant
 
-A modern AI-powered fashion assistant web app that helps users generate outfit ideas, explore trends, and improve their styling decisions based on preferences.
+A modern AI-powered fashion assistant web app that helps users generate outfit ideas, explore trends, and improve their styling decisions based on preferences
 
----
-
-## 🚀 Live Demo
-
-🔗 https://mariaprincyaruldass-ops.github.io/fashion-ai-app/
-
----
 
 ## 📌 Features
 
