@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleAI – Smart Fashion Assistant</title>
+    <!-- Use a modern Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Feather icons via CDN for clean look -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i data-feather="hexagon" class="brand-icon"></i>
+                <h1>StyleAI</h1>
+            </div>
+            <ul class="nav-links">
+                <li><button class="nav-btn active" data-target="home"><i data-feather="home"></i> Home</button></li>
+                <li><button class="nav-btn" data-target="recommendations"><i data-feather="star"></i> Recommendations</button></li>
+                <li><button class="nav-btn" data-target="generator"><i data-feather="zap"></i> Quick Mode</button></li>
+                <li><button class="nav-btn" data-target="trends"><i data-feather="trending-up"></i> Trends</button></li>
+                <li><button class="nav-btn" data-target="color"><i data-feather="droplet"></i> Color Intel</button></li>
+                <li><button class="nav-btn" data-target="favorites"><i data-feather="heart"></i> Favorites</button></li>
+                <li><button class="nav-btn" data-target="profile"><i data-feather="user"></i> Profile</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="mobile-menu-btn d-none">
+                    <button id="menu-toggle"><i data-feather="menu"></i></button>
+                    <h2>StyleAI</h2>
+                </div>
+                <div class="page-title">
+                    <h2 id="current-page-title">Dashboard</h2>
+                </div>
+                <div class="user-shortcut">
+                    <button id="header-profile-btn" class="icon-btn"><i data-feather="user"></i></button>
+                </div>
+            </header>
+
+            <div class="scroll-container">
+                <!-- Views -->
+                
+                <!-- Home View -->
+                <section id="home" class="view active">
+                    <div class="hero-section">
+                        <h2>Your Personal Fashion AI</h2>
+                        <p>Discover personalized outfit recommendations tailored precisely to your body type, occasion, and weather.</p>
+                        <button class="btn-primary" onclick="window.app.navigate('recommendations')">Start Styling</button>
+                    </div>
+
+                    <div class="dashboard-cards">
+                        <div class="card clickable" onclick="window.app.navigate('generator')">
+                            <div class="card-icon"><i data-feather="zap"></i></div>
+                            <h3>Quick Generator</h3>
+                            <p>Need an outfit fast? Let StyleAI build one instantly.</p>
+                        </div>
+                        <div class="card clickable" onclick="window.app.navigate('trends')">
+                            <div class="card-icon"><i data-feather="trending-up"></i></div>
+                            <h3>Latest Trends</h3>
+                            <p>Explore what's hot this season across streetwear and formal wear.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recommendations View -->
+                <section id="recommendations" class="view">
+                    <div class="form-container">
+                        <h3>Smart Outfit Engine</h3>
+                        <p>Fill out the details below to get 3-5 personalized outfits.</p>
+                        <form id="rec-form">
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Gender</label>
+                                    <select name="gender" required>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Unisex">Unisex/Any</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Occasion</label>
+                                    <select name="occasion" required>
+                                        <option value="Casual">Casual</option>
+                                        <option value="Formal">Formal</option>
+                                        <option value="Party">Party</option>
+                                        <option value="Office">Office</option>
+                                        <option value="Wedding">Wedding</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Weather</label>
+                                    <select name="weather" required>
+                                        <option value="Hot">Hot</option>
+                                        <option value="Cold">Cold</option>
+                                        <option value="Mild">Mild</option>
+                                        <option value="Rainy">Rainy</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Style Preference</label>
+                                    <select name="stylePref" required>
+                                        <option value="Minimal">Minimal</option>
+                                        <option value="Streetwear">Streetwear</option>
+                                        <option value="Elegant">Elegant</option>
+                                        <option value="Sporty">Sporty</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary w-100">Generate Recommendations <i data-feather="wand"></i></button>
+                        </form>
+                    </div>
+                    
+                    <div id="rec-loading" class="loading-state d-none">
+                        <div class="spinner"></div>
+                        <p>Analyzing style combinations...</p>
+                    </div>
+
+                    <div id="rec-results" class="results-container d-none">
+                        <!-- Output rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- Quick Generator View -->
+                <section id="generator" class="view">
+                    <div class="form-container mini">
+                        <h3>Quick Outfit Generator</h3>
+                        <form id="quick-form">
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Occasion</label>
+                                    <select name="quickOccasion" required>
+                                        <option value="Casual">Casual</option>
+                                        <option value="Formal">Formal</option>
+                                        <option value="Party">Party</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Weather</label>
+                                    <select name="quickWeather" required>
+                                        <option value="Hot">Hot</option>
+                                        <option value="Cold">Cold</option>
+                                        <option value="Mild">Mild</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Favorite Color</label>
+                                    <input type="text" name="quickColor" placeholder="e.g., Blue, Black..." required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">Generate Instant Outfit</button>
+                        </form>
+                    </div>
+                    <div id="quick-loading" class="loading-state d-none">
+                        <div class="spinner"></div>
+                        <p>Drafting outfit...</p>
+                    </div>
+                    <div id="quick-results"></div>
+                </section>
+
+                <!-- Trends View -->
+                <section id="trends" class="view">
+                    <div class="trends-board" id="trends-container">
+                        <!-- Rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- Color Intelligence View -->
+                <section id="color" class="view">
+                    <div class="form-container">
+                        <h3>Color Intelligence</h3>
+                        <p>Understand color psychology and get matching palettes.</p>
+                        <div class="input-group">
+                            <label>Pick a base color</label>
+                            <input type="color" id="base-color-picker" value="#3b82f6" class="color-picker-input">
+                        </div>
+                    </div>
+                    <div id="color-results" class="color-results-grid mt-4">
+                        <!-- Rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- Favorites View -->
+                <section id="favorites" class="view">
+                    <div id="favorites-container" class="favorites-grid">
+                        <p class="empty-state">No favorite outfits saved yet.</p>
+                    </div>
+                </section>
+
+                <!-- Profile View -->
+                <section id="profile" class="view">
+                    <div class="form-container">
+                        <h3>Your Profile</h3>
+                        <form id="profile-form">
+                            <div class="form-grid">
+                                <div class="input-group">
+                                    <label>Default Body Type</label>
+                                    <select name="bodyType">
+                                        <option value="Slim">Slim</option>
+                                        <option value="Athletic">Athletic</option>
+                                        <option value="Plus-size">Plus-size</option>
+                                        <option value="Average">Average</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label>Preferred Colors</label>
+                                    <input type="text" name="prefColors" placeholder="e.g., Neutrals, Earth tones">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">Save Profile</button>
+                        </form>
+                        <p id="profile-status" class="status-msg d-none">Profile saved successfully!</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
